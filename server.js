@@ -4,6 +4,8 @@ const http = require("http").createServer(app);
 const io = require("socket.io")(http);
 const { v4: uuidV4 } = require("uuid");
 
+const PORT = 3000;
+
 app.set("view engine", "ejs");
 app.use(express.static("public"));
 
@@ -26,4 +28,6 @@ io.on("connection", (socket) => {
   });
 });
 
-http.listen(3000);
+http.listen(PORT, () => {
+  console.log(`listening to port : ${PORT}`);
+});
