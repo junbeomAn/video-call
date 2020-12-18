@@ -6,7 +6,9 @@
   "scripts": {
     "start": "nodemon server.js"
   },
-  "keywords": [],
+  "keywords": [
+    "heroku"
+  ],
   "author": "",
   "license": "ISC",
   "dependencies": {
@@ -15,5 +17,8 @@
     "nodemon": "^2.0.6",
     "socket.io": "^3.0.4",
     "uuid": "^8.3.2"
+  },
+  "engines": {
+    "node": "14.15.0"
   }
 }
