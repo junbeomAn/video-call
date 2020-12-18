@@ -23,6 +23,9 @@ navigator.mediaDevices
       call.on("stream", (remoteStream) => {
         addVideoStream(video, remoteStream);
       });
+      call.on("close", () => {
+        video.remove();
+      });
     });
 
     socket.on("user-connected", (userId) => {
