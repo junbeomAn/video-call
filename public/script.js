@@ -14,13 +14,13 @@ navigator.mediaDevices
     audio: true,
   })
   .then((stream) => {
-    addVideoStream(myVideo, stream);
+    addVideoStream(myVideo, stream); // show my video
 
     myPeer.on("call", (call) => {
       // receive calls
       call.answer(stream);
+      const video = document.createElement("video");
       call.on("stream", (remoteStream) => {
-        const video = document.createElement("video");
         addVideoStream(video, remoteStream);
       });
     });
@@ -33,7 +33,12 @@ navigator.mediaDevices
 socket.on("user-disconnected", (userId) => {
   if (peers[userId]) {
     peers[userId].close();
+    delete peers[userId];
   }
+});
+
+myPeer.on("open", (id) => {
+  socket.emit("join-room", ROOM_ID, id);
 });
 
 function connectToNewUser(userId, stream) {
@@ -49,10 +54,6 @@ function connectToNewUser(userId, stream) {
   });
   peers[userId] = call;
 }
-
-myPeer.on("open", (id) => {
-  socket.emit("join-room", ROOM_ID, id);
-});
 
 function addVideoStream(video, stream) {
   video.srcObject = stream;
