@@ -35,7 +35,7 @@ navigator.mediaDevices
 
 socket.on("user-disconnected", (userId) => {
   if (peers[userId]) {
-    peers[userId].close();
+    peers[userId].destroy();
     delete peers[userId];
   }
 });
