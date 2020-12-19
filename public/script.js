@@ -26,6 +26,7 @@ navigator.mediaDevices
       call.on("close", () => {
         video.remove();
       });
+      peers[call.peer] = call;
     });
 
     socket.on("user-connected", (userId) => {
@@ -35,7 +36,7 @@ navigator.mediaDevices
 
 socket.on("user-disconnected", (userId) => {
   if (peers[userId]) {
-    peers[userId].destroy();
+    peers[userId].close();
     delete peers[userId];
   }
 });
